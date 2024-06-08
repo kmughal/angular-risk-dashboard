@@ -13,7 +13,7 @@
 
 }
 
-<list-features [features]="features" />
+<list-features [features]="(features$| async)!"/>
 
  @if(activateAddFeatureInputBox) {
 <add-feature (featureAdded)="onFeatureAdded($event)" (closeModal)="onCloseModal()"  />

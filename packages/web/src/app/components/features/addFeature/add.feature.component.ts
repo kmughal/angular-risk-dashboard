@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Feature } from '../types';
 import { FeatureService } from '../services/feature.service.service';
+import { Store } from '@ngrx/store';
+import { addNewFeature } from '../actions/features.actions';
 
 @Component({
   selector: 'add-feature',
@@ -12,7 +14,8 @@ export class AddFeatureComponent {
   @Output() closeModal = new EventEmitter<void>();
   constructor(
     private formBuilder: FormBuilder,
-    private featureService: FeatureService
+    private featureService: FeatureService,
+    private store: Store
   ) {}
 
   newFeature = this.formBuilder.group({
@@ -26,13 +29,11 @@ export class AddFeatureComponent {
 
   addFeature() {
     const newItem = {
+      id: 0,
       name: this.newFeature.value.name ?? '',
       description: this.newFeature.value.description ?? '',
     };
-    this.featureService.addFeature(newItem).subscribe((features) => {
-      this.featureAdded.emit(features);
-    });
-
+    this.store.dispatch(addNewFeature(newItem));
     this.newFeature.reset();
   }
 
