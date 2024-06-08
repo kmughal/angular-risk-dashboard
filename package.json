@@ -5,9 +5,9 @@
         "packages/*"
     ],
     "scripts": {
-        "client": "yarn workspace web start",
-        "server": "yarn workspace api start",
-        "start": "concurrently --kill-others-on-fail 'yarn server'  'yarn client'"
+        "start:client": "yarn workspace web start",
+        "start:server": "yarn workspace api start",
+        "start": "concurrently --kill-others-on-fail 'yarn start:server'  'yarn start:client'"
     },
     "dependencies": {
         "concurrently": "^8.2.2",
