@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "my-org",
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "client": "yarn workspace web start",
+        "server": "yarn workspace api start",
+        "start": "concurrently --kill-others-on-fail 'yarn server'  'yarn client'"
+    },
+    "dependencies": {
+        "concurrently": "^8.2.2",
+        "yarn": "^1.22.22"
+    }
+}

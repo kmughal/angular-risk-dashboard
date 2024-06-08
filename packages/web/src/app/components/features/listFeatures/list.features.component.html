@@ -1,0 +1,16 @@
+<div class="grid-x grid-margin-x">
+  @for (item of features; track $index) {
+  <div class="cell small-12 medium-6">
+    <div class="card">
+      <div class="card-divider">
+        <h2>{{ item.name }}</h2>
+      </div>
+      <div class="card-section">
+        <p>{{ item.description }}</p>
+      </div>
+    </div>
+  </div>
+  } @empty {
+  <p>No features found</p>
+  }
+</div>

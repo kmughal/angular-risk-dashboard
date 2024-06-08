@@ -1,0 +1,69 @@
+<style>
+  dialog {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    width: 25vw;
+    border: none;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: white;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+
+  dialog[open] {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  dialog::backdrop {
+    background: repeating-linear-gradient(
+      30deg,
+      rgba(24, 194, 236, 0.2),
+      rgba(24, 194, 236, 0.2) 1px,
+      rgba(24, 194, 236, 0.3) 1px,
+      rgba(24, 194, 236, 0.3) 20px
+    );
+    backdrop-filter: blur(1px);
+    transition: background 0.3s ease-in-out;
+  }
+
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+</style>
+
+<dialog id="dialog" open>
+  <h2>Add Feature</h2>
+  <form [formGroup]="newFeature" (ngSubmit)="addFeature()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name" required />
+
+    <label for="name">Description:</label>
+    <input
+      type="text"
+      id="description"
+      formControlName="description"
+      required
+    />
+
+    <div *ngIf="formControls.description.errors?.['minlength']">
+      Description must be at least 6 characters
+    </div>
+    <div class="row">
+      <button class="button columns" type="submit" [disabled]="!newFeature.valid">
+        Submit
+      </button>
+      <button class="button columns" (click)="closeFeatureModal()">close</button>
+    </div>
+  </form>
+</dialog>

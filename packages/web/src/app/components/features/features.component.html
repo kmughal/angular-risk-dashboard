@@ -1,0 +1,20 @@
+<h2>Features</h2>
+@if (activateAddFeatureInputBox === false) {
+  <p>
+    Do you want to <a href="#" (click)="toggleAddInputPanel()">add</a> more
+    features ?
+  </p>
+}
+@else {
+  <p>
+    Do you want to <a href="#" (click)="toggleAddInputPanel()">close</a> the
+    input panel ?
+  </p>
+
+}
+
+<list-features [features]="features" />
+
+ @if(activateAddFeatureInputBox) {
+<add-feature (featureAdded)="onFeatureAdded($event)" (closeModal)="onCloseModal()"  />
+}
