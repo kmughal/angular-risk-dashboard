@@ -21,20 +21,20 @@ app.get("/features", (req, res) => {
 app.post("/features", (req, res) => {
   const feature = req.body;
   const newId = features.length > 0 ? features.at(-1).id : 0;
-  feature.id = newId;
+  feature.featureId = newId;
   features.push(feature);
   res.json(features);
 });
 
 app.delete("/feature/:id", (req, res) => {
-  const id = req.params.id;
-  features = features.filter((feature) => feature.id !== id);
-  res.json({ id });
+  const featureId = req.params.id;
+  features = features.filter((feature) => feature.featureId !== featureId);
+  res.json({ featureId });
 });
 
 app.get("/feature/:id", (req, res) => {
-  const id = req.params.id;
-  const feature = features.find((feature) => feature.id !== id);
+  const featureId = req.params.id;
+  const feature = features.find((feature) => feature.featureId !== featureId);
   res.json(feature);
 });
 

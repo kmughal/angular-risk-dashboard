@@ -29,7 +29,7 @@ export class AddFeatureComponent {
 
   addFeature() {
     const newItem = {
-      id: 0,
+      featureId: 0,
       name: this.newFeature.value.name ?? '',
       description: this.newFeature.value.description ?? '',
     };

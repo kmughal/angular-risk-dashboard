@@ -6,9 +6,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ListFeaturesComponent } from './listFeatures/list.features.component';
 import { Feature } from './types';
 import { FeatureService } from './services/feature.service.service';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { loadFeatures } from './actions/features.actions';
 import { selectFeatures } from './selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-features',
@@ -17,10 +18,12 @@ import { selectFeatures } from './selectors';
   providers: [FeatureService],
 })
 export class FeaturesComponent {
-  features$ = this.store.select(selectFeatures);
+  features$: Observable<Feature[]>;
   features: Feature[] = [];
 
-  constructor(private featureService: FeatureService, private store: Store) {}
+  constructor(private featureService: FeatureService, private store: Store) {
+    this.features$ = this.store.pipe(select(selectFeatures));
+  }
 
   activateAddFeatureInputBox = false;
   toggleAddInputPanel() {
@@ -28,6 +31,7 @@ export class FeaturesComponent {
   }
 
   ngOnInit() {
+    this.features$.subscribe(features => console.log('Features:', features));
     this.store.dispatch(loadFeatures());
   }
 

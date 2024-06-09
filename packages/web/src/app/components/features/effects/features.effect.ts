@@ -31,7 +31,11 @@ export class FeaturesEffects {
       exhaustMap((action) =>
         this.featureService.addFeature(action.feature).pipe(
           map((features) => {
-            return loadFeaturesSuccess(features);
+            const uniqueFeatures = features.map((feature, index) => ({
+              ...feature,
+              id: feature.featureId || index + 1
+            }));
+            return loadFeaturesSuccess(uniqueFeatures);
           }),
           catchError(() => of({ type: '[Features] Load Features Failure' }))
         )
